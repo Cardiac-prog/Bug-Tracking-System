@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .table-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 8px 12px;
+      margin: 4px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .delete-button {
+      background-color: #dc3545;
+    }
+
+    .delete-button:hover {
+      background-color: #c82333;
+    }
+
+    .new-project-link {
+      text-align: center;
+    }
+
+    .new-project-link a {
+      display: inline-block;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #28a745;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .new-project-link a:hover {
+      background-color: #218838;
+    }
+
+    /* Pagination styling (if used) */
+    .pagy-nav {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="table-container">
+    <h1>Projects</h1>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= link_to project.title, project %></td>
+          <td><%= project.description %></td>
+          <td><%= link_to "Edit", edit_project_path(project), class: 'button' %></td>
+          <td><%= link_to 'Delete', project_path(project), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button delete-button' %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="new-project-link">
+    <%= link_to "New Project", new_project_path %>
+  </div>
+</body>
+</html>
