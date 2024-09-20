@@ -1,0 +1,2 @@
+class FeatureAndBugsController < ApplicationController
+end
