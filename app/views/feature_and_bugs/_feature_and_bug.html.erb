@@ -1,0 +1,61 @@
+
+<style>
+  h1, table {
+    border-collapse: collapse;
+  }
+  td, th {
+    border: 1px solid black;
+  }
+</style>
+
+<!-- Table for Features -->
+<h2>Features</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Deadline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% feature_and_bugs.each do |feature_and_bug| %>
+      <% if feature_and_bug.item_type == "feature" %>
+        <tr>
+          <td><%= link_to feature_and_bug.title, project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
+          <td><%= feature_and_bug.description %></td>
+          <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
+          <td><%= feature_and_bug.deadline %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- Table for Bugs -->
+<h2>Bugs</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Deadline</th>
+      <th>Screenshot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% feature_and_bugs.each do |feature_and_bug| %>
+      <% if feature_and_bug.item_type == "bug" %>
+        <tr>
+          <td><%= link_to feature_and_bug.title, project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
+          <td><%= feature_and_bug.description %></td>
+          <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
+          <td><%= feature_and_bug.deadline %></td>
+          <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot) : 'No Image' %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

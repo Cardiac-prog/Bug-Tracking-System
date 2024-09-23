@@ -1,0 +1,34 @@
+<h1><%= @feature_and_bug.title %></h1>
+
+<p>
+  <strong>Description:</strong>
+  <%= @feature_and_bug.description %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @feature_and_bug.project.title if @feature_and_bug.project %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= status_to_string(@feature_and_bug.status, @feature_and_bug.item_type) %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @feature_and_bug.item_type %>
+</p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @feature_and_bug.deadline %>
+</p>
+
+<% if @feature_and_bug.item_type == "bug" %>
+<p>
+  <strong>Screenshot:</strong>
+  <%= @feature_and_bug.screenshot.present? ? image_tag(@feature_and_bug.screenshot) : 'No Image' %>
+</p>
+
+<% end %>

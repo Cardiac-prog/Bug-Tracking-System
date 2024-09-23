@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
 
-    .project-details {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+      .project-details {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-    h4 {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 10px;
-    }
+      h4 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+      }
 
-    h4 span {
-      font-weight: normal;
-      color: #555;
-    }
+      h4 span {
+        font-weight: normal;
+        color: #555;
+      }
 
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      color: #fff;
-      background-color: #007bff;
-      border: none;
-      border-radius: 4px;
-      text-decoration: none;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
+      .back-link, .add-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
 
-    .back-link:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body>
-  <div class="project-details">
-    <h4>Title: <span><%= @project.title %></span></h4>
-    <h4>Description: <span><%= @project.description %></span></h4>
+      .back-link:hover, .add-link:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="project-details">
+      <h4>Title: <span><%= @project.title %></span></h4>
+      <h4>Description: <span><%= @project.description %></span></h4>
+      <%= render "feature_and_bugs/feature_and_bug", feature_and_bugs: @feature_and_bugs %>
 
-    <%= link_to "Back", projects_path, class: 'back-link' %>
-  </div>
-</body>
+      <%= link_to "Add Feature", new_project_feature_and_bug_path(project_id: @project.id, item_type: "feature"), class: 'add-link' %>
+      <%= link_to "Report Bug", new_project_feature_and_bug_path(project_id: @project.id, item_type: "bug"), class: 'add-link' %>
+      <%= link_to "Back", projects_path, class: 'back-link' %>
+    </div>
+  </body>
 </html>

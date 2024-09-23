@@ -1,12 +1,12 @@
 class ProjectsController < ApplicationController
-
-  before_action :find_project, only: [:show, :edit, :update, :destroy]
+  before_action :find_project, only: [ :show, :edit, :update, :destroy ]
   def index
     @projects = Project.all
   end
 
   def show
     # find_project through before_action
+    @feature_and_bugs = @project.feature_and_bugs
   end
 
   def new
@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to @project
     else
-      render :new, status: :unprocessable_entity  
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       redirect_to @project
     else
-      render :edit, status: :unprocessable_entity  
+      render :edit, status: :unprocessable_entity
     end
   end
 

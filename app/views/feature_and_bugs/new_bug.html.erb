@@ -1,0 +1,22 @@
+<h1>Report Bug</h1>
+
+<%= form_with model: @feature_and_bug, url: project_feature_and_bugs_path(@project), local: true do |f| %>
+  <%= f.hidden_field :item_type, value: 'bug' %>
+  
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :deadline %>
+  <%= f.date_field :deadline %>
+
+  <%= f.label :screenshot %>
+  <%= f.file_field :screenshot %>
+
+  <%= f.label :status %>
+  <%= f.select :status, bug_status_options %>
+
+  <%= f.submit 'Report Bug', class: 'btn btn-secondary' %>
+<% end %>

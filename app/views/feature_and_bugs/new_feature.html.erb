@@ -1,0 +1,19 @@
+<h1>Add Feature</h1>
+
+<%= form_with model: @feature_and_bug, url: project_feature_and_bugs_path(@project), local: true do |f| %>
+  <%= f.hidden_field :item_type, value: 'feature' %>
+  
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :deadline %>
+  <%= f.date_field :deadline %>
+
+  <%= f.label :status %>
+  <%= f.select :status, feature_status_options.each_with_index.map { |status, index| [status.humanize, index] } %>
+
+  <%= f.submit 'Create Feature', class: 'btn btn-primary' %>
+<% end %>
