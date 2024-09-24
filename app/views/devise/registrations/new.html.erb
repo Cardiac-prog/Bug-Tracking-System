@@ -1,0 +1,103 @@
+<style>
+  .signup-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  .field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #444;
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .form-select {
+    appearance: none;
+    background-color: white;
+  }
+
+  .form-input:focus, .form-select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .actions {
+    text-align: center;
+  }
+
+  .submit-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .submit-btn:hover {
+    background-color: #218838;
+  }
+
+  .signup-form em {
+    font-size: 12px;
+    color: #777;
+  }
+</style>
+<body>
+  <h2>Sign up</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'signup-form' }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, autofocus: true, class: 'form-input' %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autocomplete: "email", class: 'form-input' %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: 'form-input' %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-input' %>
+    </div>
+    <div class="field">
+      <%= f.label :role %><br />
+      <%= f.select :role, User.roles.keys.map { |role| [role.humanize, role] }, { prompt: 'Select Role' }, class: 'form-select' %>
+    </div>
+    <br>
+    <div class="actions">
+      <%= f.submit "Sign up", class: 'submit-btn' %>
+    </div>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</body>
