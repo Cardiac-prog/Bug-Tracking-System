@@ -53,10 +53,6 @@
       <h4>Title: <span><%= @project.title %></span></h4>
       <h4>Description: <span><%= @project.description %></span></h4>
       <%= render "feature_and_bugs/feature_and_bug", feature_and_bugs: @feature_and_bugs %>
-
-      <%= link_to "Add Feature", new_project_feature_and_bug_path(project_id: @project.id, item_type: "feature"), class: 'add-link' %>
-      <%= link_to "Report Bug", new_project_feature_and_bug_path(project_id: @project.id, item_type: "bug"), class: 'add-link' %>
-      <%= link_to "Back", projects_path, class: 'back-link' %>
     </div>
   </body>
 </html>

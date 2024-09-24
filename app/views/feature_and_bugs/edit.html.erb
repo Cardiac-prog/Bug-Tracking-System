@@ -1,1 +1,5 @@
-<%= render 'form', feature_and_bug: @feature_and_bug %>
+<% if @feature_and_bug.item_type == "feature" %>
+  <%= render template: "feature_and_bugs/new_feature" %>
+<% else %>
+  <%= render template: "feature_and_bugs/new_bug" %>
+<% end %>

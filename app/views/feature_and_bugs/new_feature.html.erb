@@ -1,19 +1,100 @@
-<h1>Add Feature</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
 
-<%= form_with model: @feature_and_bug, url: project_feature_and_bugs_path(@project), local: true do |f| %>
-  <%= f.hidden_field :item_type, value: 'feature' %>
-  
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+      .form-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px 30px; /* Added more padding on sides */
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-  <%= f.label :description %>
-  <%= f.text_area :description %>
+      h1 {
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-  <%= f.label :deadline %>
-  <%= f.date_field :deadline %>
+      label {
+        display: block;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 8px;
+      }
 
-  <%= f.label :status %>
-  <%= f.select :status, feature_status_options.each_with_index.map { |status, index| [status.humanize, index] } %>
+      input[type="text"], 
+      textarea, 
+      input[type="date"], 
+      select {
+        width: calc(100% - 10px); /* Add margin to prevent touching the sides */
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        transition: border-color 0.3s ease;
+      }
 
-  <%= f.submit 'Create Feature', class: 'btn btn-primary' %>
-<% end %>
+      input[type="text"]:focus, 
+      textarea:focus, 
+      input[type="date"]:focus, 
+      select:focus {
+        border-color: #007bff;
+      }
+
+      .btn {
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1><%= @feature_and_bug.new_record? ? 'Add Feature' : 'Edit Feature' %></h1>
+
+      <%= form_with model: @feature_and_bug, url: @feature_and_bug.new_record? ? project_feature_and_bugs_path(@project) : project_feature_and_bug_path(@project, @feature_and_bug), local: true do |f| %>
+        
+        <%= f.hidden_field :item_type, value: 'feature' %>
+
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+
+        <%= f.label :description %>
+        <%= f.text_area :description, rows: 5 %>
+
+        <%= f.label :deadline %>
+        <%= f.date_field :deadline %>
+
+        <%= f.label :status %>
+        <%= f.select :status, feature_status_options.each_with_index.map { |status, index| [status.humanize, index] } %>
+
+        <%= f.submit @feature_and_bug.new_record? ? 'Create Feature' : 'Update Feature', class: 'btn' %>
+      <% end %>
+    </div>
+  </body>
+</html>

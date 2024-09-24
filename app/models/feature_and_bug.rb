@@ -6,4 +6,8 @@ class FeatureAndBug < ApplicationRecord
   validates :screenshot, format: { with: /\.(png|gif)\z/i, message: "must be a .png or .gif file" }, allow_blank: true
 
   enum item_type: {  feature: 0, bug: 1 }
+
+  def formatted_deadline
+    deadline.strftime("%d-%m-%y") if deadline
+  end
 end

@@ -1,61 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
 
-<style>
-  h1, table {
-    border-collapse: collapse;
-  }
-  td, th {
-    border: 1px solid black;
-  }
-</style>
+      .project-details {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-<!-- Table for Features -->
-<h2>Features</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Deadline</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% feature_and_bugs.each do |feature_and_bug| %>
-      <% if feature_and_bug.item_type == "feature" %>
-        <tr>
-          <td><%= link_to feature_and_bug.title, project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
-          <td><%= feature_and_bug.description %></td>
-          <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
-          <td><%= feature_and_bug.deadline %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+      h4 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+      }
 
-<!-- Table for Bugs -->
-<h2>Bugs</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Deadline</th>
-      <th>Screenshot</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% feature_and_bugs.each do |feature_and_bug| %>
-      <% if feature_and_bug.item_type == "bug" %>
-        <tr>
-          <td><%= link_to feature_and_bug.title, project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
-          <td><%= feature_and_bug.description %></td>
-          <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
-          <td><%= feature_and_bug.deadline %></td>
-          <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot) : 'No Image' %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+      h4 span {
+        font-weight: normal;
+        color: #555;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      table th, table td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+
+      table th {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      table td {
+        color: #555;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      h2 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .add-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #28a745; /* Green for Add Feature */
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      .add-link:hover {
+        background-color: #218838; /* Darker green on hover */
+      }
+
+      .report-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #17a2b8; /* Teal for Report Bug */
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      .report-link:hover {
+        background-color: #138496; /* Darker teal on hover */
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #dc3545; /* Red for Back */
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-link:hover {
+        background-color: #c82333; /* Darker red on hover */
+      }
+
+      .delete-link {
+        color: #dc3545;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .delete-link:hover {
+        text-decoration: underline;
+      }
+
+      .no-image {
+        color: #999;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="project-details">
+
+      <!-- Features Table -->
+      <h2>Features</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Deadline</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% feature_and_bugs.each do |feature_and_bug| %>
+            <% if feature_and_bug.item_type == "feature" %>
+              <tr>
+                <td><%= link_to feature_and_bug.title, project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
+                <td><%= feature_and_bug.description %></td>
+                <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
+                <td><%= feature_and_bug.formatted_deadline %></td>
+                <td><%= link_to "Edit", edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
+                <td><%= link_to "Delete", project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+
+      <!-- Bugs Table -->
+      <h2>Bugs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Deadline</th>
+            <th>Screenshot</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% feature_and_bugs.each do |feature_and_bug| %>
+            <% if feature_and_bug.item_type == "bug" %>
+              <tr>
+                <td><%= link_to feature_and_bug.title, project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
+                <td><%= feature_and_bug.description %></td>
+                <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
+                <td><%= feature_and_bug.formatted_deadline %></td>
+                <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot) : content_tag(:span, 'No Image', class: 'no-image') %></td>
+                <td><%= link_to "Edit", edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
+                <td><%= link_to "Delete", project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= link_to "Add Feature", new_project_feature_and_bug_path(project_id: @project.id, item_type: "feature"), class: 'add-link' %>
+      <%= link_to "Report Bug", new_project_feature_and_bug_path(project_id: @project.id, item_type: "bug"), class: 'report-link' %>
+      <%= link_to "Back", projects_path, class: 'back-link' %>
+    </div>
+  </body>
+</html>
