@@ -188,7 +188,7 @@
                 <td><%= feature_and_bug.description %></td>
                 <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
                 <td><%= feature_and_bug.formatted_deadline %></td>
-                <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot) : content_tag(:span, 'No Image', class: 'no-image') %></td>
+                <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot.url) : content_tag(:span, 'No Image', class: 'no-image') %></td>
                 <td><%= link_to "Edit", edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
                 <td><%= link_to "Delete", project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
               </tr>

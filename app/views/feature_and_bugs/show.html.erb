@@ -83,7 +83,7 @@
       <% if @feature_and_bug.item_type == "bug" %>
         <p class="screenshot">
           <strong>Screenshot:</strong>
-          <%= @feature_and_bug.screenshot.present? ? image_tag(@feature_and_bug.screenshot) : content_tag(:span, 'No Image', class: 'no-image') %>
+          <%= @feature_and_bug.screenshot.present? ? image_tag(@feature_and_bug.screenshot.url) : content_tag(:span, 'No Image', class: 'no-image') %>
         </p>
       <% end %>
       <%= link_to "Back", project_path(@project), class: 'back-link' %>

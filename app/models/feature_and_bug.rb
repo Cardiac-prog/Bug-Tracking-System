@@ -1,4 +1,5 @@
 class FeatureAndBug < ApplicationRecord
+  mount_uploader :screenshot, ImageUploader     # This will tell rails that screenshot solumn of featureAndBug table will be handled by image uploader
   belongs_to :project
 
   validates :title, :status, :item_type, :project, presence: true
