@@ -1,7 +1,9 @@
 class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
+
+  process resize_to_limit: [ 200, 200 ]
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -14,7 +16,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def extension_whitelist
-    %w[gif png]
+    %w[gif png]              # only gif and png images will be allowed to be uploaded
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

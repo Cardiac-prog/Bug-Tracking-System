@@ -40,7 +40,7 @@ class FeatureAndBugsController < ApplicationController
     if @feature_and_bug.save
       redirect_to project_feature_and_bug_path(@project, @feature_and_bug), notice: "Successfully created."
     else
-      flash.now[:alert] = "Failed to create Feature or Bug. Please check the errors below."
+      Rails.logger.error(@feature_and_bug.errors.full_messages)
       render @feature_and_bug.item_type == "feature" ? "new_feature" : "new_bug", status: :unprocessable_entity
     end
   end
