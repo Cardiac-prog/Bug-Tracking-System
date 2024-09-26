@@ -7,4 +7,6 @@ class User < ApplicationRecord
   enum role: { manager: 0, qa: 1, developer: 2 }
   validates :role, presence: true, inclusion: { in: roles.keys }
   validates :name, presence: true
+
+  has_and_belongs_to_many :projects
 end
