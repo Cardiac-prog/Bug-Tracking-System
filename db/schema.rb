@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_26_125857) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_26_131630) do
   create_table "feature_and_bugs", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_125857) do
     t.integer "item_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "creator_id", null: false
     t.index ["project_id"], name: "index_feature_and_bugs_on_project_id"
     t.index ["title", "project_id"], name: "index_feature_and_bugs_on_title_and_project_id", unique: true
   end
@@ -57,5 +58,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_125857) do
   end
 
   add_foreign_key "feature_and_bugs", "projects"
+  add_foreign_key "feature_and_bugs", "users", column: "creator_id"
   add_foreign_key "projects", "users", column: "manager_id"
 end
