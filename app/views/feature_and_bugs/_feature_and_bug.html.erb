@@ -3,148 +3,199 @@
   <head>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
       }
 
       .project-details {
-        width: 95%;
-        max-width: 1200px;
-        margin: 20px auto;
-        padding: 20px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden; /* Ensures content doesn't overflow */
+          width: 95%;
+          max-width: 1200px;
+          margin: 20px auto;
+          padding: 20px;
+          background: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          overflow: hidden; /* Ensures content doesn't overflow */
       }
 
       h4 {
-        font-size: 18px;
-        color: #333;
-        margin-bottom: 10px;
+          font-size: 18px;
+          color: #333;
+          margin-bottom: 10px;
       }
 
       h4 span {
-        font-weight: normal;
-        color: #555;
+          font-weight: normal;
+          color: #555;
       }
 
       table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        word-wrap: break-word; /* Ensures long text wraps inside the table cells */
-        table-layout: auto; /* Allow tables to expand naturally */
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          word-wrap: break-word; /* Ensures long text wraps inside the table cells */
+          table-layout: auto; /* Allow tables to expand naturally */
       }
 
       table th, table td {
-        padding: 12px 15px;
-        text-align: left;
-        border: 1px solid #ddd;
+          padding: 12px 15px;
+          text-align: left;
+          border: 1px solid #ddd;
       }
 
       table th {
-        background-color: #007bff;
-        color: #fff;
-        font-weight: bold;
+          background-color: #007bff;
+          color: #fff;
+          font-weight: bold;
       }
 
       table td {
-        color: #555;
+          color: #555;
       }
 
       table tr:nth-child(even) {
-        background-color: #f9f9f9;
+          background-color: #f9f9f9;
       }
 
       h2 {
-        font-size: 20px;
-        color: #333;
-        margin-bottom: 15px;
+          font-size: 20px;
+          color: #333;
+          margin-bottom: 15px;
       }
 
       .add-link, .report-link, .back-link {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 16px;
-        color: #fff;
-        border-radius: 4px;
-        text-decoration: none;
-        text-align: center;
-        transition: background-color 0.3s ease;
+          display: inline-block;
+          margin-top: 20px;
+          padding: 10px 20px;
+          font-size: 16px;
+          color: #fff;
+          border-radius: 4px;
+          text-decoration: none;
+          text-align: center;
+          transition: background-color 0.3s ease;
       }
 
       .add-link {
-        background-color: #28a745; /* Green for Add Feature */
+          background-color: #28a745; /* Green for Add Feature */
       }
 
       .add-link:hover {
-        background-color: #218838; /* Darker green on hover */
+          background-color: #218838; /* Darker green on hover */
       }
 
       .report-link {
-        background-color: #17a2b8; /* Teal for Report Bug */
+          background-color: #17a2b8; /* Teal for Report Bug */
       }
 
       .report-link:hover {
-        background-color: #138496; /* Darker teal on hover */
+          background-color: #138496; /* Darker teal on hover */
       }
 
       .back-link {
-        background-color: #dc3545; /* Red for Back */
+          background-color: #dc3545; /* Red for Back */
       }
 
       .back-link:hover {
-        background-color: #c82333; /* Darker red on hover */
+          background-color: #c82333; /* Darker red on hover */
       }
 
       .delete-link {
-        color: #dc3545;
-        text-decoration: none;
-        font-weight: bold;
+          color: #dc3545;
+          text-decoration: none;
+          font-weight: bold;
       }
 
       .delete-link:hover {
-        text-decoration: underline;
+          text-decoration: underline;
       }
 
       .no-image {
-        color: #999;
-        font-style: italic;
+          color: #999;
+          font-style: italic;
+      }
+
+      /* Search container styles */
+      .search-container {
+          margin: 20px 0;
+          display: flex;
+          flex-direction: column;
+      }
+
+      .search-container input[type="text"] {
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          width: 100%;
+          max-width: 400px;
+      }
+
+      .search-container ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 5px 0;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          display: none; /* Initially hidden */
+          max-height: 150px;
+          overflow-y: auto; /* Allow scrolling */
+      }
+
+      .search-container ul li {
+          padding: 10px;
+          background: #fff;
+          border-bottom: 1px solid #ddd;
+          cursor: pointer;
+      }
+
+      .search-container ul li:hover {
+          background: #f0f0f0;
       }
 
       /* Responsive adjustments */
       @media (max-width: 768px) {
-        .project-details {
-          width: 100%;
-          padding: 10px;
-        }
+          .project-details {
+              width: 100%;
+              padding: 10px;
+          }
 
-        table th, table td {
-          padding: 10px;
-          font-size: 14px;
-        }
+          table th, table td {
+              padding: 10px;
+              font-size: 14px;
+          }
 
-        h2 {
-          font-size: 18px;
-        }
+          h2 {
+              font-size: 18px;
+          }
 
-        .add-link, .report-link, .back-link {
-          padding: 8px 16px;
-          font-size: 14px;
-        }
+          .add-link, .report-link, .back-link {
+              padding: 8px 16px;
+              font-size: 14px;
+          }
+
+          .search-container input[type="text"] {
+              max-width: 100%;
+          }
       }
     </style>
   </head>
   <body>
     <div class="project-details">
-     
+      <!-- Search Form -->
+      <!-- Search Form -->
+      <%# <div class="search-container">
+        <%# <form id="bug-search-form" action="<%= project_feature_and_bugs_path(@project) " method="get"> %>
+          <%# <input type="text" id="bug-search-input" name="query" placeholder="Search Bugs..."> %>
+          <%# <button type="submit">Search</button> %>
+        <%# </form> %>
+        <!-- Dropdown list for suggestions -->
+        <%# <ul id="bugs-list" style="display: none;"></ul> %>
+      <%# </div>  %>
       <!-- Features Table -->
       <h2>Features</h2>
       <table>
@@ -158,8 +209,11 @@
             <% if current_user.role == 'developer' && feature_and_bugs.any? { |fab| fab.assigned_users.exclude?(current_user) && fab.item_type == "feature" } %>
               <th>Assignment</th>
             <% end %>
+
+            <% unless current_user.role == 'developer' %>
             <th>Edit</th>
             <th>Delete</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -171,12 +225,14 @@
                 <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
                 <td><%= feature_and_bug.formatted_deadline %></td>
                 <td><%= feature_and_bug.creator.email if feature_and_bug.creator.present? %></td>
-                <!-- Access creator's email -->
                 <% if current_user.role == 'developer' && feature_and_bug.assigned_users.exclude?(current_user) %>
                   <td><%= button_to 'Assign to Me', assign_to_me_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), method: :patch %></td>
                 <% end %>
+
+                <% unless current_user.role == 'developer' %>
                 <td><%= link_to "Edit", edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
                 <td><%= link_to "Delete", project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+                <% end %>
               </tr>
             <% end %>
           <% end %>
@@ -196,8 +252,11 @@
             <% if current_user.role == 'developer' && feature_and_bugs.any? { |fab| fab.assigned_users.exclude?(current_user) && fab.item_type == "feature" } %>
               <th>Assignment</th>
             <% end %>
+
+            <% unless current_user.role == 'developer' %>
             <th>Edit</th>
             <th>Delete</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -210,20 +269,22 @@
                 <td><%= feature_and_bug.formatted_deadline %></td>
                 <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot.url) : content_tag(:span, 'No Image', class: 'no-image') %></td>
                 <td><%= feature_and_bug.creator.email if feature_and_bug.creator.present? %></td>
-                <!-- Access creator's email -->
                 <% if current_user.role == 'developer' && feature_and_bug.assigned_users.exclude?(current_user) %>
                   <td><%= button_to 'Assign to Me', assign_to_me_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), method: :patch %></td>
                 <% end %>
+
+                <% unless current_user.role == 'developer' %>
                 <td><%= link_to "Edit", edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
                 <td><%= link_to "Delete", project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+                <% end %>
               </tr>
             <% end %>
           <% end %>
         </tbody>
       </table>
-      <%= link_to "Add Feature", new_project_feature_and_bug_path(project_id: @project.id, item_type: "feature"), class: 'add-link' %>
-      <%= link_to "Report Bug", new_project_feature_and_bug_path(project_id: @project.id, item_type: "bug"), class: 'report-link' %>
-      <%= link_to "Back", root_path, class: 'back-link' %>
+      <div>
+        <%= link_to 'Add Feature', new_project_feature_and_bug_path(@project, item_type: 'feature'), class: 'add-link' %>
+        <%= link_to 'Report Bug', new_project_feature_and_bug_path(@project, item_type: 'bug'), class: 'report-link' %>
+        <%= link_to 'Back', projects_path, class: 'back-link' %>
+      </div>
     </div>
-  </body>
-</html>

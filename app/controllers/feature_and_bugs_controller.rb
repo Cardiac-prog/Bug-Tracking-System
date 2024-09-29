@@ -8,13 +8,9 @@ class FeatureAndBugsController < ApplicationController
     authorize FeatureAndBug
     @feature_and_bugs = policy_scope(FeatureAndBug).where(project: current_user.projects)
 
-  # Apply filters based on params
- 
-
-  # Filter by project if necessary
-  if params[:project_id].present?
-    @feature_and_bugs = @feature_and_bugs.where(project_id: params[:project_id])
-  end
+    if params[:query].present?
+      @feature_and_bugs = @feature_and_bugs.where("title ILIKE :query OR description ILIKE :query", query: "%#{params[:query]}%")
+    end
   end
 
   def show
