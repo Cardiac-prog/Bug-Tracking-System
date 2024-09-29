@@ -86,6 +86,9 @@
           <%= @feature_and_bug.screenshot.present? ? image_tag(@feature_and_bug.screenshot.url) : content_tag(:span, 'No Image', class: 'no-image') %>
         </p>
       <% end %>
+      <% if policy(@feature_and_bug).mark_as_resolved? %>
+        <%= button_to 'Mark as Resolved', mark_as_resolved_project_feature_and_bug_path(@feature_and_bug), method: :patch, class: 'btn btn-primary' %>
+      <% end %>
       <%= link_to "Back", project_path(@project), class: 'back-link' %>
     </div>
   </body>

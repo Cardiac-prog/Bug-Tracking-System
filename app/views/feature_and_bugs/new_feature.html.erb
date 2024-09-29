@@ -80,6 +80,7 @@
       <%= form_with model: @feature_and_bug, url: @feature_and_bug.new_record? ? project_feature_and_bugs_path(@project) : project_feature_and_bug_path(@project, @feature_and_bug), local: true do |f| %>
         
         <%= f.hidden_field :item_type, value: 'feature' %>
+        <%= f.hidden_field :project_id, value: @project.id %>
 
         <%= f.label :title %>
         <%= f.text_field :title %>

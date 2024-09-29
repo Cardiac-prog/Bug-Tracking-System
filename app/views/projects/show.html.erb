@@ -50,8 +50,22 @@
   </head>
   <body>
     <div class="project-details">
+      
       <h4>Title: <span><%= @project.title %></span></h4>
       <h4>Description: <span><%= @project.description %></span></h4>
+      <h4>Assigned QAs</h4>
+      <ul>
+        <% @qas.each do |qa| %>
+          <li><%= qa.name %> (<%= qa.email %>)</li>
+        <% end %>
+      </ul>
+      <h4>Assigned Developers</h4>
+      <ul>
+        <% @developers.each do |developer| %>
+          <li><%= developer.name %> (<%= developer.email %>)</li>
+        <% end %>
+      </ul>
+      
       <%= render "feature_and_bugs/feature_and_bug", feature_and_bugs: @feature_and_bugs %>
     </div>
   </body>

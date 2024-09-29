@@ -136,7 +136,6 @@
   </head>
   <body>
     <div class="project-details">
-
       <!-- Features Table -->
       <h2>Features</h2>
       <table>
@@ -146,6 +145,10 @@
             <th>Description</th>
             <th>Status</th>
             <th>Deadline</th>
+            <th>Created By</th>
+            <% if current_user.role == 'developer' && feature_and_bugs.any? { |fab| fab.assigned_users.exclude?(current_user) && fab.item_type == "feature" } %>
+              <th>Assignment</th>
+            <% end %>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -158,6 +161,11 @@
                 <td><%= feature_and_bug.description %></td>
                 <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
                 <td><%= feature_and_bug.formatted_deadline %></td>
+                <td><%= feature_and_bug.creator.email if feature_and_bug.creator.present? %></td>
+                <!-- Access creator's email -->
+                <% if current_user.role == 'developer' && feature_and_bug.assigned_users.exclude?(current_user) %>
+                  <td><%= button_to 'Assign to Me', assign_to_me_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), method: :patch %></td>
+                <% end %>
                 <td><%= link_to "Edit", edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
                 <td><%= link_to "Delete", project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
               </tr>
@@ -165,7 +173,6 @@
           <% end %>
         </tbody>
       </table>
-
       <!-- Bugs Table -->
       <h2>Bugs</h2>
       <table>
@@ -176,6 +183,10 @@
             <th>Status</th>
             <th>Deadline</th>
             <th>Screenshot</th>
+            <th>Reported By</th>
+            <% if current_user.role == 'developer' && feature_and_bugs.any? { |fab| fab.assigned_users.exclude?(current_user) && fab.item_type == "feature" } %>
+              <th>Assignment</th>
+            <% end %>  
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -189,6 +200,11 @@
                 <td><%= status_to_string(feature_and_bug.status, feature_and_bug.item_type) %></td>
                 <td><%= feature_and_bug.formatted_deadline %></td>
                 <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot.url) : content_tag(:span, 'No Image', class: 'no-image') %></td>
+                <td><%= feature_and_bug.creator.email if feature_and_bug.creator.present? %></td>
+ <!-- Access creator's email -->
+                <% if current_user.role == 'developer' && feature_and_bug.assigned_users.exclude?(current_user) %>
+                  <td><%= button_to 'Assign to Me', assign_to_me_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), method: :patch %></td>
+                <% end %>
                 <td><%= link_to "Edit", edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
                 <td><%= link_to "Delete", project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
               </tr>
@@ -196,7 +212,6 @@
           <% end %>
         </tbody>
       </table>
-
       <%= link_to "Add Feature", new_project_feature_and_bug_path(project_id: @project.id, item_type: "feature"), class: 'add-link' %>
       <%= link_to "Report Bug", new_project_feature_and_bug_path(project_id: @project.id, item_type: "bug"), class: 'report-link' %>
       <%= link_to "Back", projects_path, class: 'back-link' %>

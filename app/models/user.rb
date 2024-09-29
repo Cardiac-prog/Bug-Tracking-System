@@ -18,5 +18,5 @@ class User < ApplicationRecord
   has_and_belongs_to_many :assigned_bugs, class_name: "FeatureAndBug", join_table: "bugs_users"
 
   # A user can belong to many projects (both developer and QA)
-  has_and_belongs_to_many :projects
+  has_and_belongs_to_many :projects, class_name: "Project", join_table: "projects_users"
 end

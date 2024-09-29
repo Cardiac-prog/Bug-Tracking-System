@@ -1,5 +1,4 @@
 <h1>Feature and Bugs</h1>
-
 <table>
   <thead>
     <tr>
@@ -10,10 +9,10 @@
       <th>Type</th>
       <th>Deadline</th>
       <th>Screenshot</th>
+      <th>Assignment</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @feature_and_bugs.each do |feature_and_bug| %>
       <tr>
@@ -22,13 +21,15 @@
         <td><%= feature_and_bug.status %></td>
         <td><%= feature_and_bug.item_type %></td>
         <td><%= feature_and_bug.deadline %></td>
-        <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot) : 'No Image' %></td>
-        <td><%= link_to 'Show', feature_and_bug %></td>
-        <td><%= link_to 'Edit', edit_feature_and_bug_path(feature_and_bug) %></td>
-        <td><%= link_to 'Destroy', feature_and_bug, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= feature_and_bug.screenshot.present? ? image_tag(feature_and_bug.screenshot.url) : 'No Image' %></td>
+        
+        <%# <td><%= link_to 'Show', feature_and_bug %>
+        <td><%= link_to 'Edit', edit_project_feature_and_bug_path(feature_and_bug.project, feature_and_bug) %></td>
+
+        <td><%= link_to 'Destroy', project_feature_and_bug_path(feature_and_bug.project, feature_and_bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'New Feature and Bug', new_feature_and_bug_path %>
+<%= link_to 'New Feature and Bug', new_project_feature_and_bug_path %>

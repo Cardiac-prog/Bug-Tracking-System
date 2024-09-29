@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  
   <head>
     <title><%= content_for(:title) || "Bugs Tracking Sys" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,6 +25,16 @@
           <%= link_to "Sign up", new_user_registration_path, class: 'signup-btn' %>
         <% end %>
       </nav>
+      <% if flash[:notice] %>
+        <div class="alert alert-success">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
     </header>
     <%= yield %>
   </body>

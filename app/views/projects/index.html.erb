@@ -25,6 +25,16 @@
       text-align: center;
     }
 
+    /* Flash Message Styling */
+    .flash-message {
+      padding: 10px;
+      background-color: #f8d7da; /* Light red */
+      color: #721c24; /* Dark red */
+      border: 1px solid #f5c6cb; /* Red border */
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -100,13 +110,21 @@
   </style>
 </head>
 <body>
-  <h2>Hello <%= current_user.name %>...</h2>
+  <h2>Hello <%= current_user.email %>...</h2>
   <div class="table-container">
     <h1>Projects</h1>
+
+    <!-- Flash Messages in case of unauthorized access-->
+    <!-- flash messages are definesd in application controller -->
+    <% if flash[:alert] %>
+      <div class="flash-message"><%= flash[:alert] %></div>
+    <% end %>
+
     <table>
       <tr>
         <th>Title</th>
         <th>Description</th>
+        <th>Created By</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -114,6 +132,7 @@
         <tr>
           <td><%= link_to project.title, project %></td>
           <td><%= project.description %></td>
+          <td><%= project.manager.email %></td>
           <td><%= link_to "Edit", edit_project_path(project), class: 'button' %></td>
           <td><%= link_to 'Delete', project_path(project), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button delete-button' %></td>
         </tr>
