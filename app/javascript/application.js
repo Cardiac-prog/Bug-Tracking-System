@@ -1,9 +1,7 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
 
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {  // Use turbo:load instead of DOMContentLoaded
     // Projects Search
     const searchInput = document.getElementById('search-input');
     const projectsList = document.getElementById('projects-list');
@@ -24,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Accept': 'application/json',
                     'Cache-Control': 'no-cache'
-                }
+                }   
             })
                 .then(response => {
                     if (!response.ok) {
@@ -42,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const link = document.createElement('a');
                         link.href = project.url;
                         link.textContent = project.title;
+                        link.target = "_top";
                         listItem.appendChild(link);
                         projectsList.appendChild(listItem);
                     });

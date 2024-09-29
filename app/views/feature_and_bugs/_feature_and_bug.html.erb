@@ -223,7 +223,7 @@
       </table>
       <%= link_to "Add Feature", new_project_feature_and_bug_path(project_id: @project.id, item_type: "feature"), class: 'add-link' %>
       <%= link_to "Report Bug", new_project_feature_and_bug_path(project_id: @project.id, item_type: "bug"), class: 'report-link' %>
-      <%= link_to "Back", projects_path, class: 'back-link' %>
+      <%= link_to "Back", root_path, class: 'back-link' %>
     </div>
   </body>
 </html>

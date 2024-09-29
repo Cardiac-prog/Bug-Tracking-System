@@ -2,9 +2,26 @@ class ProjectsController < ApplicationController
   before_action :find_project, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_manager, only: [ :new, :create, :edit, :update, :destroy ]
   def index
+    # Get the projects the user is authorized to view through Pundit
     @projects = policy_scope(Project)
-    authorize Project
+
+    # Apply search filter if the `params[:query]` is present
+    if params[:query].present?
+      @projects = @projects.where("title LIKE ?", "%#{params[:query]}%")
+    end
+
+    # Apply pagination using Pagy gem
+    # @pagy, @projects = pagy(@projects)
+
+    # Respond to both HTML and JSON formats
+    respond_to do |format|
+      format.html # normal page load for HTML
+      format.json do
+        render json: { projects: @projects.map { |project| { title: project.title, url: project_path(project) } } }
+      end
+    end
   end
+
 
   def show
     authorize @project
