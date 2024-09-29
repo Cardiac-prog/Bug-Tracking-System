@@ -7,6 +7,14 @@ class FeatureAndBugsController < ApplicationController
     # Use Pundit scope to ensure only relevant records are fetched
     authorize FeatureAndBug
     @feature_and_bugs = policy_scope(FeatureAndBug).where(project: current_user.projects)
+
+  # Apply filters based on params
+ 
+
+  # Filter by project if necessary
+  if params[:project_id].present?
+    @feature_and_bugs = @feature_and_bugs.where(project_id: params[:project_id])
+  end
   end
 
   def show
@@ -77,19 +85,26 @@ class FeatureAndBugsController < ApplicationController
   end
 
   def assign_to_me
-    # @feature_and_bug = FeatureAndBug.find(params[:id])
     authorize @feature_and_bug, :assign_to_me?
 
-    @feature_and_bug.assigned_users << current_user unless @feature_and_bug.assigned_users.include?(current_user)
+    # Assign the current user to the bug (developer)
+    unless @feature_and_bug.assigned_users.include?(current_user)
+      @feature_and_bug.assigned_users << current_user
+    end
 
     if @feature_and_bug.save
-      @project = @feature_and_bug.project # Fetch the associated project
+      @project = @feature_and_bug.project  # Fetch the associated project
+
+      # Send email notification to the developer (current_user)
+      BugMailer.bug_assigned(@feature_and_bug).deliver_later  # Using deliver_later for background processing
+
       redirect_to project_path(@project), notice: "Bug assigned to you successfully."
     else
-      @project = @feature_and_bug.project # Fetch the associated project
+      @project = @feature_and_bug.project  # Fetch the associated project
       redirect_to project_path(@project), alert: "Failed to assign bug."
     end
   end
+
 
 
   def mark_as_resolved

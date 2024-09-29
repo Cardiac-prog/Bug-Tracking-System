@@ -63,3 +63,4 @@ gem "mini_magick"
 
 
 gem "pundit"
+gem "sidekiq"

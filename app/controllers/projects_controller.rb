@@ -7,11 +7,13 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    # find_project through before_action
-
     authorize @project
     get_qas_devs
     @feature_and_bugs = @project.feature_and_bugs
+
+    # Apply filters based on the search parameters
+    # @feature_and_bugs = @feature_and_bugs.where(status: params[:status]) if params[:status].present?
+    # @feature_and_bugs = @feature_and_bugs.where(item_type: params[:bug_type]) if params[:bug_type].present?
   end
 
   def new
@@ -54,12 +56,22 @@ class ProjectsController < ApplicationController
     @project.user_ids = params[:project][:qa_ids] + params[:project][:developer_ids]
 
     if @project.update(project_params)
-      redirect_to @project
+      # Send email notifications to all QAs and developers after the project update
+      @project.qas.each do |qa|
+        ProjectMailer.project_updated_email(@project, qa).deliver_later  # Using deliver_later to send emails in the background via Sidekiq
+      end
+
+      @project.developers.each do |developer|
+        ProjectMailer.project_updated_email(@project, developer).deliver_later  # Notify developers as well
+      end
+
+      redirect_to @project, notice: "Project was successfully updated."
     else
       set_qas_devs
       render :edit, status: :unprocessable_entity
     end
   end
+
 
   def destroy
     # find_project through before_action
