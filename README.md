@@ -105,6 +105,10 @@ When Developer signs in, the following screen is shown:
 Developer can assign a bug to themselves:
 ![Assign Bug](https://github.com/user-attachments/assets/9418042a-c2e2-48c8-bfd5-932b0323d06b)
 
+### Mark the bug as resolved
+Developer can change the status of bug to "resolved"
+![image](https://github.com/user-attachments/assets/b05ca45a-c6d8-44b5-953b-eafdd8a07030)
+
 
 
 
