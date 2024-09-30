@@ -58,7 +58,7 @@ This is a Bug Tracking System that allows users to manage projects and bugs effi
 - Can view all projects but cannot edit, delete, or create any projects.
 
 ### References
-- [Authorization with CanCan](http://railscasts.com/episodes/192-authorization-with-cancan)
+- [Authorization with Pundit](https://github.com/elabs/pundit)
 - [CarrierWave File Uploads](http://railscasts.com/episodes/253-carrierwave-file-uploads)
 
 
