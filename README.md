@@ -25,7 +25,26 @@ QA can "Add Feature" and "Report Bugs":
 
 When "Add Feature is clicked":
 
-![image](https://github.com/user-attachments/assets/1f83aa39-1638-41bc-bd10-e681e2cb0d7d)
+![image](https://github.com/user-attachments/assets/1f83aa39-1638-41bc-bd10-e681e2cb0d7d)en 
+
+When "Report Bug" is clicked:
+
+![image](https://github.com/user-attachments/assets/07119e0f-50f6-414e-83d0-be9d5a82f961)
+
+
+
+
+When "Developer" signs in the following screen is shown to him:
+
+![image](https://github.com/user-attachments/assets/7699153d-2266-408a-b011-9174c9de0b04)
+
+
+Developer can Assign Bug to himself:
+
+![image](https://github.com/user-attachments/assets/9418042a-c2e2-48c8-bfd5-932b0323d06b)
+
+
+
 
 
 
